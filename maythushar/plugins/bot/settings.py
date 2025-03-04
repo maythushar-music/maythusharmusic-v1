@@ -37,6 +37,16 @@ from maythushar.utils.inline.settings import (
 from maythushar.utils.inline.start import private_panel
 from config import BANNED_USERS, OWNER_ID
 
+@app.on_callback_query(filters.regex("gib_source") & ~BANNED_USERS)
+@languageCB
+async def gib_repo(client, CallbackQuery, _):
+    await CallbackQuery.edit_message_media(
+        InputMediaVideo("https://files.catbox.moe/7ygwo6.mp4"),
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton(text="ცᴀᴄᴋ", callback_data=f"settingsback_helper")]]
+        ),
+    )
+
 
 @app.on_message(
     filters.command(["settings", "setting"]) & filters.group & ~BANNED_USERS
